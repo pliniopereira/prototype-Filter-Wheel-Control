@@ -26,7 +26,7 @@ class PrototypeFilterWheelControl(QWidget):
 
         self.button_settings()
 
-        self.setWindowTitle("Imager Box")
+        self.setWindowTitle("PFWC")
         self.resize(50, 34)
         self.show()
 
