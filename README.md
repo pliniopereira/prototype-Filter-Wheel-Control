@@ -8,7 +8,6 @@ A simple control of the filter wheel.
   * Windows 7
   * http://www.animatics.com/products/software/animatics/code-dev-software-obs/smiengine.html
   * IntegMotorInterface.dll
-  * [SBIG Driver Checker (Windows)](http://diffractionlimited.com/support/sbig-archives/)
   * [Anaconda 4.3.1 - Python 3.6 version - 32 bits](https://www.continuum.io/downloads)
   * [PyQt5](#pyqt5)
   * [Pyserial](#Pyserial)
