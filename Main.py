@@ -5,7 +5,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5.QtWidgets import (QGridLayout, QGroupBox)
+from PyQt5.QtWidgets import (QGridLayout, QGroupBox, QMessageBox)
 
 from rodafiltros.FilterControl import *
 from rodafiltros.layout import set_hbox, set_lvbox
@@ -23,6 +23,8 @@ class PrototypeFilterWheelControl(QWidget):
         grid.addWidget(self.createFilterWheelInfoGroup(), 0, 0)
         grid.addWidget(self.createFilterWheelGroup(), 1, 0)
         self.setLayout(grid)
+
+        self.button_settings()
 
         self.setWindowTitle("Imager Box")
         self.resize(50, 34)
@@ -86,6 +88,17 @@ class PrototypeFilterWheelControl(QWidget):
                                      set_hbox(self.btn_set_filter, self.set_filter_position),
                                      set_hbox(self.btn_home_position_filter)))
         return groupBox
+
+    def closeEvent(self, event):
+
+        reply = QMessageBox.question(self, 'Message',
+                                     "Are you sure to quit?", QMessageBox.Yes |
+                                     QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
     def fill_combo_close_open_ccd_shutter(self):
         self.close_open.addItem("Open", 0)
