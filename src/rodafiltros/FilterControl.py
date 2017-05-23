@@ -2,9 +2,9 @@ from time import sleep
 
 import comtypes.client as cc
 import comtypes.gen.INTEGMOTORINTERFACELib
+from src.rodafiltros.singleton import Singleton
 
-from rodafiltros import Leitura_portas
-from rodafiltros.singleton import Singleton
+from src.rodafiltros import Leitura_portas
 
 
 class FilterControl(metaclass=Singleton):

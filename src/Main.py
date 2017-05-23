@@ -6,9 +6,9 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import (QGridLayout, QGroupBox, QMessageBox)
+from src.rodafiltros.layout import set_hbox, set_lvbox
 
-from rodafiltros.FilterControl import *
-from rodafiltros.layout import set_hbox, set_lvbox
+from src.rodafiltros.FilterControl import *
 
 
 class PrototypeFilterWheelControl(QWidget):
