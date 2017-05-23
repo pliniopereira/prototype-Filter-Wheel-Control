@@ -1,7 +1,7 @@
 # Prototype Filter Wheel Control
 
 A simple control of the filter wheel.
-
+![Prototype Filter Wheel Control](https://github.com/pliniopereira/prototype-Filter-Wheel-Control/blob/master/prototype_img.png)
 
 ## License
 
