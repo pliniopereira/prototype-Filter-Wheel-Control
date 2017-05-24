@@ -105,9 +105,11 @@ class FilterControl(metaclass=Singleton):
             i = self.CommInterface.GetResponseOf(command)
 
             while i == '1':
+                print("1111111111111111111111111")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
             while i == '0':
+                print("22222222222222222222")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
@@ -116,6 +118,7 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("G")  # Make the filter move to position
 
             while i == '1':
+                print("333333333333333333333333333")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
@@ -139,7 +142,6 @@ class FilterControl(metaclass=Singleton):
             hPosition = 1
             self.CommInterface.WriteCommand("g=-1")
             sleep(5)
-
             return hPosition
 
         except Exception as e:
@@ -154,10 +156,10 @@ class FilterControl(metaclass=Singleton):
         if self.connect_state:
             self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
-            sleep(2)
+            sleep(0.5)
             self.CommInterface.WriteCommand("g=-1 GOSUB4")
             resposta = self.CommInterface.ReadResponse()
-            sleep(2)
+            sleep(0.5)
 
             return resposta[-1]
         else:
@@ -179,17 +181,17 @@ class FilterControl(metaclass=Singleton):
 
         hPosition = int(self.get_filtro_atual())
 
-        if FilterNumber == 1:
+        if str(FilterNumber) == '1':
             command = "g=1"
-        if FilterNumber == 2:
+        if str(FilterNumber) == '2':
             command = "g=2"
-        if FilterNumber == 3:
+        if str(FilterNumber) == '3':
             command = "g=3"
-        if FilterNumber == 4:
+        if str(FilterNumber) == '4':
             command = "g=4"
-        if FilterNumber == 5:
+        if str(FilterNumber) == '5':
             command = "g=5"
-        if FilterNumber == 6:
+        if str(FilterNumber) == '6':
             command = "g=6"
 
         sleep(1)

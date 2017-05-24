@@ -143,7 +143,6 @@ class PrototypeFilterWheelControl(QWidget):
             print("func_home_position")
             self.roda_filtros.home_reset()
             sleep(1)
-            self.func_get_filter()
         except Exception as e:
             print(e)
         finally:
