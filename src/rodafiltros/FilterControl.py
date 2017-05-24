@@ -90,7 +90,7 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("V=25000")
             command = "a=UAI Ra"
             i = self.CommInterface.GetResponseOf(command)
-            if i == 0:
+            if i == '0':
                 self.CommInterface.WriteCommand("i=@P-500")
                 self.CommInterface.WriteCommand("P=i")
                 self.CommInterface.WriteCommand("MP")
@@ -104,10 +104,10 @@ class FilterControl(metaclass=Singleton):
             command = "a=UAI Ra"
             i = self.CommInterface.GetResponseOf(command)
 
-            while i == 1:
+            while i == '1':
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
-            while i == 0:
+            while i == '0':
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
@@ -115,7 +115,7 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("V=-750")
             self.CommInterface.WriteCommand("G")  # Make the filter move to position
 
-            while i == 1:
+            while i == '1':
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
