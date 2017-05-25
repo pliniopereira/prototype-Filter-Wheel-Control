@@ -105,11 +105,9 @@ class FilterControl(metaclass=Singleton):
             i = self.CommInterface.GetResponseOf(command)
 
             while i == '1':
-                print("1111111111111111111111111")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
             while i == '0':
-                print("22222222222222222222")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
@@ -118,7 +116,6 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("G")  # Make the filter move to position
 
             while i == '1':
-                print("333333333333333333333333333")
                 command = "a=UAI Ra"
                 i = self.CommInterface.GetResponseOf(command)
 
