@@ -2,6 +2,8 @@ from time import sleep
 
 import comtypes.client as cc
 import comtypes.gen.INTEGMOTORINTERFACELib
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QGuiApplication
 from rodafiltros import Leitura_portas
 from rodafiltros.singleton import Singleton
 
@@ -43,7 +45,7 @@ class FilterControl(metaclass=Singleton):
                     print("Home Reset")
                     self.home_reset()
                     break
-            except Exception as e:
+            except Exception:
                 print(serial_list[count] + " - Cannot establish a link to Motors")
 
     def open_shutter(self):
@@ -61,6 +63,8 @@ class FilterControl(metaclass=Singleton):
             print("Close Shutter ERROR -> {}".format(e))
 
     def home_reset(self):
+        QGuiApplication.setOverrideCursor(Qt.WaitCursor)
+
         self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
         # Make an SMIMotor object
         Motor = self.CommInterface.GetMotor(1)
@@ -148,6 +152,7 @@ class FilterControl(metaclass=Singleton):
             print("----------------------------------------------------")
             print("Filter position: " + str(hPosition))
             print("----------------------------------------------------\n")
+            QGuiApplication.restoreOverrideCursor()
 
     def get_filtro_atual(self):
         if self.connect_state:
@@ -173,6 +178,8 @@ class FilterControl(metaclass=Singleton):
         :param FilterNumber(int): numero do filtro desejado
         :return: Posição atual do filtro.
         '''
+
+        QGuiApplication.setOverrideCursor(Qt.WaitCursor)
 
         self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
@@ -245,5 +252,7 @@ class FilterControl(metaclass=Singleton):
         print("----------------------------------------------------")
         print("Filter position: " + str(FilterNumber))
         print("----------------------------------------------------\n")
+
+        QGuiApplication.restoreOverrideCursor()
 
         return FilterNumber
