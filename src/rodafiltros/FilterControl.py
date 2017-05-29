@@ -242,7 +242,7 @@ class FilterControl(metaclass=Singleton):
         self.CommInterface.WriteCommand("END")
         hPosition = FilterNumber  # h receive g for VB use
 
-        print("\n----------------------------------------------------")
+        print("----------------------------------------------------")
         print("Filter position: " + str(FilterNumber))
         print("----------------------------------------------------\n")
 
