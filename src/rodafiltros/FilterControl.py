@@ -145,7 +145,7 @@ class FilterControl(metaclass=Singleton):
             print("Home reset ERROR -> {}".format(e))
             print("------------------------------------")
         finally:
-            print("\n----------------------------------------------------")
+            print("----------------------------------------------------")
             print("Filter position: " + str(hPosition))
             print("----------------------------------------------------\n")
 
@@ -171,7 +171,7 @@ class FilterControl(metaclass=Singleton):
     def FilterWheel_Control(self, FilterNumber):
         '''
         :param FilterNumber(int): numero do filtro desejado
-        :return: Posição final.
+        :return: Posição atual do filtro.
         '''
 
         self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
