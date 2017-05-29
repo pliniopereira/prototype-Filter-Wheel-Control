@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
+from time import sleep
 
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import (QGridLayout, QGroupBox, QMessageBox)
-from rodafiltros.FilterControl import *
+from rodafiltros.FilterControl import FilterControl
 from rodafiltros.layout import set_hbox, set_lvbox
 
 
@@ -140,7 +141,7 @@ class PrototypeFilterWheelControl(QWidget):
     def func_home_position(self):
         try:
             sleep(1)
-            print("func_home_position")
+            print("Home Position")
             self.roda_filtros.home_reset()
             sleep(1)
         except Exception as e:
