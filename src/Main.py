@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
+from random import randint
 from time import sleep
 
 from PyQt5 import QtCore
@@ -127,8 +128,17 @@ class PrototypeFilterWheelControl(QWidget):
         try:
             sleep(1)
             wish_filter_int = self.set_filter_position.currentIndex() + 1
-            self.roda_filtros.FilterWheel_Control(wish_filter_int)
-            sleep(1)
+            i = 0
+            while i < 999999:
+                aux = randint(1, 6)
+                print("\n\n")
+                print(aux)
+                print("\n\n")
+
+                self.roda_filtros.FilterWheel_Control(aux)
+                aux += 1
+                i += 1
+                sleep(30)
         except Exception as e:
             print(e)
         finally:
@@ -149,6 +159,8 @@ class PrototypeFilterWheelControl(QWidget):
         finally:
             self.filter_position.setText("1")
 
+    def circuito_de_testes(self):
+        pass
 
 if __name__ == '__main__':
 
