@@ -7,13 +7,28 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import (QGridLayout, QGroupBox, QMessageBox)
-from rodafiltros.FilterControl import FilterControl
-from rodafiltros.layout import set_hbox, set_lvbox
+from src.rodafiltros.FilterControl import FilterControl
+from src.rodafiltros.layout import set_hbox, set_lvbox
 
 
 class PrototypeFilterWheelControl(QWidget):
     def __init__(self, parent=None):
         super(PrototypeFilterWheelControl, self).__init__(parent)
+
+        self.serial_filter_wheel_info_l = None
+        self.serial_filter_wheel_info_f = None
+        self.slots_filter_wheel_info_l = None
+        self.slots_filter_wheel_info_f = None
+        self.tempt_filter_wheel_info_l = None
+        self.tempt_filter_wheel_info_f = None
+        self.shutter_l = None
+        self.close_open_filter_wheel = None
+        self.get_filter_l = None
+        self.filter_position = None
+        self.btn_set_filter = None
+        self.set_filter_position = None
+        self.btn_stress_test = None
+        self.btn_home_position_filter = None
 
         self.roda_filtros = FilterControl()
         self.initUI()
@@ -27,7 +42,7 @@ class PrototypeFilterWheelControl(QWidget):
         self.button_settings()
 
         self.setWindowTitle("PFWC")
-        self.resize(50, 34)
+        self.resize(60, 60)
         self.show()
 
     def createFilterWheelInfoGroup(self):
@@ -81,9 +96,9 @@ class PrototypeFilterWheelControl(QWidget):
         self.set_filter_position.setMaximumWidth(100)
         self.fill_combo_filter_position()
 
-        self.btn_stress_test = QtWidgets.QPushButton('Test', self)
-
         self.btn_home_position_filter = QtWidgets.QPushButton('Home Reset', self)
+
+        self.btn_stress_test = QtWidgets.QPushButton('Test', self)
 
         groupBox.setLayout(set_lvbox(set_hbox(self.shutter_l, self.close_open_filter_wheel),
                                      set_hbox(self.get_filter_l, self.filter_position, stretch2=1),
@@ -119,12 +134,12 @@ class PrototypeFilterWheelControl(QWidget):
             self.roda_filtros.open_shutter()
 
     def fill_combo_filter_position(self):
-            self.set_filter_position.addItem("1", 1)
-            self.set_filter_position.addItem("2", 2)
-            self.set_filter_position.addItem("3", 3)
-            self.set_filter_position.addItem("4", 4)
-            self.set_filter_position.addItem("5", 5)
-            self.set_filter_position.addItem("6", 6)
+        self.set_filter_position.addItem("1", 1)
+        self.set_filter_position.addItem("2", 2)
+        self.set_filter_position.addItem("3", 3)
+        self.set_filter_position.addItem("4", 4)
+        self.set_filter_position.addItem("5", 5)
+        self.set_filter_position.addItem("6", 6)
 
     def func_filter_position(self):
         try:
@@ -140,7 +155,7 @@ class PrototypeFilterWheelControl(QWidget):
     def button_settings(self):
         self.btn_set_filter.clicked.connect(self.func_filter_position)
         self.btn_home_position_filter.clicked.connect(self.func_home_position)
-        self.btn_stress_test.clicked.connect(self.func_stress_test())
+        self.btn_stress_test.clicked.connect(self.func_stress_test)
 
     def func_home_position(self):
         try:
@@ -154,7 +169,7 @@ class PrototypeFilterWheelControl(QWidget):
             self.filter_position.setText("1")
 
     def func_stress_test(self):
-        # Funcao que testa testar a lista my_list
+        # Funcao que testa a lista my_list.
         try:
             sleep(1)
             wish_filter_int = self.set_filter_position.currentIndex() + 1
@@ -173,7 +188,6 @@ class PrototypeFilterWheelControl(QWidget):
             self.filter_position.setText(str(wish_filter_int))
 
 if __name__ == '__main__':
-
     app = QApplication(sys.argv)
     ex = PrototypeFilterWheelControl()
     sys.exit(app.exec_())
