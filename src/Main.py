@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
-from random import randint
 from time import sleep
 
 from PyQt5 import QtCore
@@ -82,12 +81,15 @@ class PrototypeFilterWheelControl(QWidget):
         self.set_filter_position.setMaximumWidth(100)
         self.fill_combo_filter_position()
 
+        self.btn_stress_test = QtWidgets.QPushButton('Test', self)
+
         self.btn_home_position_filter = QtWidgets.QPushButton('Home Reset', self)
 
         groupBox.setLayout(set_lvbox(set_hbox(self.shutter_l, self.close_open_filter_wheel),
                                      set_hbox(self.get_filter_l, self.filter_position, stretch2=1),
                                      set_hbox(self.btn_set_filter, self.set_filter_position),
-                                     set_hbox(self.btn_home_position_filter)))
+                                     set_hbox(self.btn_home_position_filter),
+                                     set_hbox(self.btn_stress_test)))
         return groupBox
 
     def closeEvent(self, event):
@@ -128,16 +130,8 @@ class PrototypeFilterWheelControl(QWidget):
         try:
             sleep(1)
             wish_filter_int = self.set_filter_position.currentIndex() + 1
-            i = 0
-            my_list = [2, 3, 2, 4]
-            while i < 999999:
-                for number in my_list:
-                    print("\n\n")
-                    print(number)
-                    print("\n\n")
-                    self.roda_filtros.FilterWheel_Control(number)
-                    sleep(30)
-                i += 1
+            self.roda_filtros.FilterWheel_Control(wish_filter_int)
+            sleep(1)
         except Exception as e:
             print(e)
         finally:
@@ -146,6 +140,7 @@ class PrototypeFilterWheelControl(QWidget):
     def button_settings(self):
         self.btn_set_filter.clicked.connect(self.func_filter_position)
         self.btn_home_position_filter.clicked.connect(self.func_home_position)
+        self.btn_stress_test.clicked.connect(self.func_stress_test())
 
     def func_home_position(self):
         try:
@@ -158,8 +153,24 @@ class PrototypeFilterWheelControl(QWidget):
         finally:
             self.filter_position.setText("1")
 
-    def circuito_de_testes(self):
-        pass
+    def func_stress_test(self):
+        # Funcao que testa testar a lista my_list
+        try:
+            sleep(1)
+            wish_filter_int = self.set_filter_position.currentIndex() + 1
+            i = 0
+            my_list = [2, 3, 2, 6]
+            while i < 999999:
+                for number in my_list:
+                    print("\n\n")
+                    print("Wish Filter position: " + str(number))
+                    self.roda_filtros.FilterWheel_Control(number)
+                    sleep(30)
+                i += 1
+        except Exception as e:
+            print(e)
+        finally:
+            self.filter_position.setText(str(wish_filter_int))
 
 if __name__ == '__main__':
 
