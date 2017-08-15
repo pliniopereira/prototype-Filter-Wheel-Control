@@ -163,9 +163,9 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("g=-1 GOSUB4")
             resposta = self.CommInterface.ReadResponse()
 
-            print("\n\n")
-            print("resposta = " + str(resposta))
-            print("\n\n")
+            # print("\n\n")
+            # print("resposta = " + str(resposta))
+            # print("\n\n")
 
             sleep(0.5)
 
@@ -190,6 +190,16 @@ class FilterControl(metaclass=Singleton):
         # self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
         hPosition = int(self.get_filtro_atual())
+        print(hPosition)
+
+        print("\n\nzzzzzzzzzzzzzzzzz")
+        print("type hPosition" + str(type(hPosition)))
+
+        print("hPosition = " + str(hPosition))
+
+        print("type self.get_filtro_atual()" + str(type(self.get_filtro_atual())))
+
+        print("zzzzzzzzzzzzzzzzzzzzzzz\n\n")
 
         if FilterNumber == 1:
             command = "g=1"
@@ -210,6 +220,20 @@ class FilterControl(metaclass=Singleton):
 
         g = FilterNumber  # Filter position
         h = hPosition  # Present position
+        print("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        print("type g" + str(type(g)))
+        print("g = " + str(g))
+
+        print("type FilterNumber" + str(type(FilterNumber)))
+        print("FilterNumber = " + str(FilterNumber))
+
+        print("type h" + str(type(h)))
+        print("h = " + str(h))
+
+        print("type hPosition" + str(type(hPosition)))
+        print("hPosition = " + str(hPosition))
+
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n")
 
         if h == 1:  # Present position is 3333
             if g < 5:

@@ -175,7 +175,8 @@ class PrototypeFilterWheelControl(QWidget):
             sleep(1)
             wish_filter_int = self.set_filter_position.currentIndex() + 1
             i = 0
-            my_list = [2, 3, 2, 6]
+            # my_list tem a sequencia de filtros que será executado
+            my_list = [2, 3, 2, 6, 2, 4, 2, 5]
             while i < 999999:
                 for number in my_list:
                     print("\n\n")
