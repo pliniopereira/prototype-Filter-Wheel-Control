@@ -182,7 +182,7 @@ class PrototypeFilterWheelControl(QWidget):
                     print("\n\n")
                     print("Wish Filter position: " + str(number))
                     self.roda_filtros.FilterWheel_Control(number)
-                    sleep(20)
+                    sleep(15)
                 i += 1
         except Exception as e:
             print(e)

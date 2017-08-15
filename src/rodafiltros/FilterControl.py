@@ -193,11 +193,11 @@ class FilterControl(metaclass=Singleton):
         print(hPosition)
 
         print("\n\nzzzzzzzzzzzzzzzzz")
-        print("type hPosition" + str(type(hPosition)))
-
+        print("type hPosition = " + str(type(hPosition)))
         print("hPosition = " + str(hPosition))
+        print("\n")
 
-        print("type self.get_filtro_atual()" + str(type(self.get_filtro_atual())))
+        print("type self.get_filtro_atual() = " + str(type(self.get_filtro_atual())))
 
         print("zzzzzzzzzzzzzzzzzzzzzzz\n\n")
 
@@ -218,20 +218,24 @@ class FilterControl(metaclass=Singleton):
         self.CommInterface.WriteCommand(command)  # Send filter position
         sleep(0.5)
 
-        g = FilterNumber  # Filter position
-        h = hPosition  # Present position
+        g = int(FilterNumber)  # Filter position
+        h = int(hPosition)  # Present position
         print("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        print("type g" + str(type(g)))
+        print("type g = " + str(type(g)))
         print("g = " + str(g))
+        print("\n")
 
-        print("type FilterNumber" + str(type(FilterNumber)))
+        print("type FilterNumber = " + str(type(FilterNumber)))
         print("FilterNumber = " + str(FilterNumber))
+        print("\n")
 
-        print("type h" + str(type(h)))
+        print("type h = " + str(type(h)))
         print("h = " + str(h))
+        print("\n")
 
         print("type hPosition" + str(type(hPosition)))
         print("hPosition = " + str(hPosition))
+        print("\n")
 
         print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n")
 
@@ -259,7 +263,7 @@ class FilterControl(metaclass=Singleton):
             if g == 1:
                 self.CommInterface.WriteCommand("P=23333")
             if g == 2:
-                self.CommInterface.WriteCommand("P=-26666")
+                self.CommInterface.WriteCommand("P=26666")
             if g > 2:
                 self.CommInterface.WriteCommand("P=g*3333")
 
