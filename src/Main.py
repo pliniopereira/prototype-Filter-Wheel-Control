@@ -7,6 +7,7 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtWidgets import (QGridLayout, QGroupBox, QMessageBox)
+
 from src.rodafiltros.FilterControl import FilterControl
 from src.rodafiltros.layout import set_hbox, set_lvbox
 
@@ -180,7 +181,7 @@ class PrototypeFilterWheelControl(QWidget):
                     print("\n\n")
                     print("Wish Filter position: " + str(number))
                     self.roda_filtros.FilterWheel_Control(number)
-                    sleep(30)
+                    sleep(20)
                 i += 1
         except Exception as e:
             print(e)

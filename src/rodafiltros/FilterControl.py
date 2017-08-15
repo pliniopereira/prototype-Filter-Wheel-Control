@@ -4,8 +4,8 @@ import comtypes.client as cc
 import comtypes.gen.INTEGMOTORINTERFACELib
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QGuiApplication
-from rodafiltros import Leitura_portas
-from rodafiltros.singleton import Singleton
+from src.rodafiltros import Leitura_portas
+from src.rodafiltros.singleton import Singleton
 
 
 class FilterControl(metaclass=Singleton):
@@ -16,6 +16,7 @@ class FilterControl(metaclass=Singleton):
         self.motor_door = None
         self.connect_state = False
         self.connect()
+        self.CommInterface.AddressMotorChain()
 
     def connect(self):
         self.smi = cc.CreateObject('SMIEngine.SMIHost')
@@ -65,7 +66,7 @@ class FilterControl(metaclass=Singleton):
     def home_reset(self):
         QGuiApplication.setOverrideCursor(Qt.WaitCursor)
 
-        self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
+        # self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
         # Make an SMIMotor object
         Motor = self.CommInterface.GetMotor(1)
         '''
@@ -156,11 +157,16 @@ class FilterControl(metaclass=Singleton):
 
     def get_filtro_atual(self):
         if self.connect_state:
-            self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
+            # self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
             sleep(0.5)
             self.CommInterface.WriteCommand("g=-1 GOSUB4")
             resposta = self.CommInterface.ReadResponse()
+
+            print("\n\n")
+            print("resposta = " + str(resposta))
+            print("\n\n")
+
             sleep(0.5)
 
             return resposta[-1]
@@ -181,7 +187,7 @@ class FilterControl(metaclass=Singleton):
 
         QGuiApplication.setOverrideCursor(Qt.WaitCursor)
 
-        self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
+        # self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
         hPosition = int(self.get_filtro_atual())
 
