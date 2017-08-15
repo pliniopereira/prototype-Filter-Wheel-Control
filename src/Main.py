@@ -112,7 +112,7 @@ class PrototypeFilterWheelControl(QWidget):
 
         reply = QMessageBox.question(self, 'Message',
                                      "Are you sure to quit?", QMessageBox.Yes |
-               çç                      QMessageBox.No, QMessageBox.No)
+                                     QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
             event.accept()
