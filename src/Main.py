@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
+from random import randint
 from time import sleep
 
 from PyQt5 import QtCore
@@ -30,6 +31,7 @@ class PrototypeFilterWheelControl(QWidget):
         self.set_filter_position = None
         self.btn_stress_test = None
         self.btn_home_position_filter = None
+        self.btn_random = None
 
         self.roda_filtros = FilterControl()
         self.initUI()
@@ -99,12 +101,15 @@ class PrototypeFilterWheelControl(QWidget):
 
         self.btn_home_position_filter = QtWidgets.QPushButton('Home Reset', self)
 
+        self.btn_random = QtWidgets.QPushButton('Random', self)
+
         self.btn_stress_test = QtWidgets.QPushButton('Test', self)
 
         groupBox.setLayout(set_lvbox(set_hbox(self.shutter_l, self.close_open_filter_wheel),
                                      set_hbox(self.get_filter_l, self.filter_position, stretch2=1),
                                      set_hbox(self.btn_set_filter, self.set_filter_position),
                                      set_hbox(self.btn_home_position_filter),
+                                     set_hbox(self.btn_random),
                                      set_hbox(self.btn_stress_test)))
         return groupBox
 
@@ -156,6 +161,7 @@ class PrototypeFilterWheelControl(QWidget):
     def button_settings(self):
         self.btn_set_filter.clicked.connect(self.func_filter_position)
         self.btn_home_position_filter.clicked.connect(self.func_home_position)
+        self.btn_random.clicked.connect(self.func_random_test)
         self.btn_stress_test.clicked.connect(self.func_stress_test)
 
     def func_home_position(self):
@@ -169,7 +175,33 @@ class PrototypeFilterWheelControl(QWidget):
         finally:
             self.filter_position.setText("1")
 
+    def func_random_test(self):
+        # Funcao que testa filtros aleatoriamente.
+        try:
+            sleep(1)
+            wish_filter_int = self.set_filter_position.currentIndex() + 1
+
+            self.roda_filtros.FilterWheel_Control(wish_filter_int)
+            sleep(1)
+            i = 0
+
+            while i < 999999:
+                aux = randint(1, 6)
+                print("\n\n")
+                print(aux)
+                print("\n\n")
+
+                self.roda_filtros.FilterWheel_Control(aux)
+                i += 1
+                sleep(15)
+
+        except Exception as e:
+            print(e)
+        finally:
+            self.filter_position.setText(str(wish_filter_int))
+
     def func_stress_test(self):
+
         # Funcao que testa a lista my_list.
         try:
             sleep(1)
@@ -188,6 +220,7 @@ class PrototypeFilterWheelControl(QWidget):
             print(e)
         finally:
             self.filter_position.setText(str(wish_filter_int))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

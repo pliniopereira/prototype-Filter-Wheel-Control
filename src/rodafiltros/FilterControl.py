@@ -84,7 +84,7 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("MP")
             self.CommInterface.WriteCommand("KGON")
             self.CommInterface.WriteCommand("KGOFF")
-            self.CommInterface.WriteCommand("KP=175")
+            self.CommInterface.WriteCommand("KP175")
             self.CommInterface.WriteCommand("KI=60")
             self.CommInterface.WriteCommand("F")
 
