@@ -1,9 +1,11 @@
 from time import sleep
 
+import comtypes
 import comtypes.client as cc
 import comtypes.gen.INTEGMOTORINTERFACELib
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QGuiApplication
+
 from src.rodafiltros import Leitura_portas
 from src.rodafiltros.singleton import Singleton
 
@@ -11,6 +13,7 @@ from src.rodafiltros.singleton import Singleton
 class FilterControl(metaclass=Singleton):
 
     def __init__(self):
+        self.hPosition = None
         self.smi = None
         self.CommInterface = None
         self.motor_door = None
@@ -140,10 +143,11 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("WAIT=500")
             self.CommInterface.WriteCommand("h=1")
             self.CommInterface.WriteCommand("RETURN")
-            hPosition = 1
+            self.hPosition = 1
             self.CommInterface.WriteCommand("g=-1")
             sleep(5)
-            return hPosition
+            self.hPosition = int(self.hPosition)
+            return self.hPosition
 
         except Exception as e:
             print("------------------------------------")
@@ -151,7 +155,7 @@ class FilterControl(metaclass=Singleton):
             print("------------------------------------")
         finally:
             print("----------------------------------------------------")
-            print("Filter position: " + str(hPosition))
+            print("Filter position: " + str(self.hPosition))
             print("----------------------------------------------------\n")
             QGuiApplication.restoreOverrideCursor()
 
@@ -163,9 +167,9 @@ class FilterControl(metaclass=Singleton):
             self.CommInterface.WriteCommand("g=-1 GOSUB4")
             resposta = self.CommInterface.ReadResponse()
 
-            # print("\n\n")
-            # print("resposta = " + str(resposta))
-            # print("\n\n")
+            print("\n\n")
+            print("resposta = " + str(resposta))
+            print("\n\n")
 
             sleep(0.5)
 
@@ -189,17 +193,19 @@ class FilterControl(metaclass=Singleton):
 
         # self.CommInterface.AddressMotorChain()  # Address SmartMotors in the RS232 daisy chain
 
-        hPosition = int(self.get_filtro_atual())
-        print(hPosition)
+        # self.hPosition = self.get_filtro_atual()
 
-        print("\n\nzzzzzzzzzzzzzzzzz")
-        print("type hPosition = " + str(type(hPosition)))
-        print("hPosition = " + str(hPosition))
-        print("\n")
+        #self.get_filtro_atual()
 
-        print("type self.get_filtro_atual() = " + str(type(self.get_filtro_atual())))
+        #self.hPosition = self.hPosition
 
-        print("zzzzzzzzzzzzzzzzzzzzzzz\n\n")
+        #print("\n\nzzzzzzzzzzzzzzzzz")
+        #print("type self.hPosition = " + str(type(self.hPosition)))
+        #print("self.hPosition = " + str(self.hPosition))
+        #print("type self.get_filtro_atual() = " + str(type(self.get_filtro_atual())))
+        #print("zzzzzzzzzzzzzzzzzzzzzzz\n\n")
+
+        FilterNumber = int(FilterNumber)
 
         if FilterNumber == 1:
             command = "g=1"
@@ -214,66 +220,102 @@ class FilterControl(metaclass=Singleton):
         if FilterNumber == 6:
             command = "g=6"
 
-        sleep(0.5)
+        #sleep(0.5)
         self.CommInterface.WriteCommand(command)  # Send filter position
         sleep(0.5)
 
         g = int(FilterNumber)  # Filter position
-        h = int(hPosition)  # Present position
-        print("\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        print("type g = " + str(type(g)))
-        print("g = " + str(g))
-        print("\n")
+        h = int(self.hPosition)  # Present position
 
-        print("type FilterNumber = " + str(type(FilterNumber)))
-        print("FilterNumber = " + str(FilterNumber))
-        print("\n")
+       # print("type FilterNumber = " + str(type(FilterNumber)))
 
-        print("type h = " + str(type(h)))
         print("h = " + str(h))
-        print("\n")
-
-        print("type hPosition" + str(type(hPosition)))
-        print("hPosition = " + str(hPosition))
-        print("\n")
-
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n")
+        print("g = " + str(g))
+        print("FilterNumber = " + str(FilterNumber))
 
         if h == 1:  # Present position is 3333
-            if g < 5:
-                self.CommInterface.WriteCommand("P=g*3333")
-            if g == 5:  # Move in opposite direction
-                self.CommInterface.WriteCommand("P=-3333")
-            if g == 6:  # Move in opposite direction
-                self.CommInterface.WriteCommand("P=0")
+            if g == 1:
+                self.CommInterface.WriteCommand("P=3333")
+            if g == 2:
+                self.CommInterface.WriteCommand("P=6666")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=-3333") 	 # Move in opposite direction
+            if g == 6:
+                self.CommInterface.WriteCommand("P=0") 		 # Do not move
 
         if h == 2:  # Present position is 6666
-            if g < 6:
-                self.CommInterface.WriteCommand("P=g*3333")
-            if g == 6:  # Move in opposite direction
+            if g == 1:
+                self.CommInterface.WriteCommand("P=3333")
+            if g == 2:
+                self.CommInterface.WriteCommand("P=6666")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=16665")
+            if g == 6:
                 self.CommInterface.WriteCommand("P=0")
 
         if h == 3:  # Present position is 9999
-            self.CommInterface.WriteCommand("P=g*3333")
+            if g == 1:
+                self.CommInterface.WriteCommand("P=3333")
+            if g == 2:
+                self.CommInterface.WriteCommand("P=6666")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=16665")
+            if g == 6:
+                self.CommInterface.WriteCommand("P=19998")
 
         if h == 4:  # Present position is 13332
-            self.CommInterface.WriteCommand("P=g*3333")
+            if g == 1:
+                self.CommInterface.WriteCommand("P=3333")
+            if g == 2:
+                self.CommInterface.WriteCommand("P=6666")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=16665")
+            if g == 6:
+                self.CommInterface.WriteCommand("P=19998")
 
         if h == 5:  # Present position is 16665
             if g == 1:
-                self.CommInterface.WriteCommand("P=23333")
+                self.CommInterface.WriteCommand("P=23332")
             if g == 2:
                 self.CommInterface.WriteCommand("P=26666")
-            if g > 2:
-                self.CommInterface.WriteCommand("P=g*3333")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=16665")
+            if g == 6:
+                self.CommInterface.WriteCommand("P=20000")
 
         if h == 6:  # Present position is 20000
             if g == 1:
-                self.CommInterface.WriteCommand("P=23333")
+                self.CommInterface.WriteCommand("P=23332")
             if g == 2:
                 self.CommInterface.WriteCommand("P=26666")
-            if g > 2:
-                self.CommInterface.WriteCommand("P=g*3333")
+            if g == 3:
+                self.CommInterface.WriteCommand("P=9999")
+            if g == 4:
+                self.CommInterface.WriteCommand("P=13332")
+            if g == 5:
+                self.CommInterface.WriteCommand("P=16665")
+            if g == 6:
+                self.CommInterface.WriteCommand("P=20000")
 
         self.CommInterface.WriteCommand("G")  # Make the filter move to next position
         sleep(1.5)  # Wait until the trajectory is finished
@@ -281,11 +323,13 @@ class FilterControl(metaclass=Singleton):
         self.CommInterface.WriteCommand("h=g")  # Reset the present filter position
         self.CommInterface.WriteCommand("O=h*3333")  # And reset the present origin
         self.CommInterface.WriteCommand("END")
-        hPosition = FilterNumber  # h receive g for VB use
+        self.hPosition = FilterNumber  # h receive g for VB use
 
         print("----------------------------------------------------")
         print("Filter position: " + str(FilterNumber))
         print("----------------------------------------------------\n")
+
+        self.hPosition = int(FilterNumber)
 
         QGuiApplication.restoreOverrideCursor()
 

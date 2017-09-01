@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
-from random import randint
+from random import randint, shuffle
 from time import sleep
 
 from PyQt5 import QtCore
@@ -90,7 +90,9 @@ class PrototypeFilterWheelControl(QWidget):
         self.fill_combo_close_open_filter_wheel_shutter()
 
         self.get_filter_l = QtWidgets.QLabel('Current filter:', self)
-        self.filter_position = QtWidgets.QLabel(self.roda_filtros.get_filtro_atual())
+        # self.filter_position = QtWidgets.QLabel(self.roda_filtros.get_filtro_atual())
+        self.filter_position = QtWidgets.QLabel("getfilter")
+
         self.filter_position.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.filter_position.setMinimumWidth(60)
 
@@ -208,7 +210,21 @@ class PrototypeFilterWheelControl(QWidget):
             wish_filter_int = self.set_filter_position.currentIndex() + 1
             i = 0
             # my_list tem a sequencia de filtros que será executado
-            my_list = [2, 3, 2, 6, 2, 4, 2, 5]
+            # my_list = [5, 1, 5, 2, 6, 1, 6, 2] # FAIL
+            # my_list = [1, 6, 1, 2, 6]  # FAIL
+            # my_list = [2, 3, 2, 4]  # ok 24 horas rodando
+            # my_list = [2, 3, 2, 4]  # ok 3 horas rodando - testar novamente
+            # my_list = [3, 4, 3, 5]  # FAIL
+            # my_list = [1, 2, 3, 5, 6]  #
+            # my_list = [3, 4]  # FAIL -   G=4 --> "P=13333"
+            # my_list = [3, 4]  # OK G=4 --> "P=13332"
+            # my_list = [4, 5]  # ok G=4 --> "P=13332" e G=5 --> "P=16665"
+            # my_list = [5, 6]  # ok G=5 --> "P=16665" e G=6 --> "P=19998"
+            # my_list = [6, 1]  #    falhou G=1 --> "P=3333" e G=6 --> "P=19998"
+            # my_list = [6, 1]  # falhou G=1 --> "P=23333" e G=6 --> "P=19998"
+            # my_list = [1, 2, 1, 3, 1, 4, 1, 5]  # Falha G=1 --> "P=3333" e G=6 --> "P=19998"
+            # my_list = [3, 4, 3, 5, 3, 6]  #  Falha G=1 --> "P=3333" e G=6 --> "P=19998"
+            my_list = [5, 6, 1, 2]  # Falha G=1 --> "P=3333" e G=6 --> "P=19998"
             while i < 999999:
                 for number in my_list:
                     print("\n\n")
